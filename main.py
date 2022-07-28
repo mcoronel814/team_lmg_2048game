@@ -17,6 +17,9 @@ test_font = pygame.font.Font(None, 50)
 game_active = True
 start_time = 0
 
+
+screen.blitz()
+
 #surface = pygame.Surface((700, 400))
 #surface.fill('beige')
 # pygame.draw.rect(screen, 'Pink',(600,200))
