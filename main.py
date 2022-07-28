@@ -2,14 +2,11 @@ import pygame
 from sys import exit
 
 
-def display_score():
-    current_time = pygame.time.get_ticks()
-    print(current_time)
-    # score_change = test_font.render(f'{current_time}', Fasle, 'beige')
-    # score_rect = score_change.get_rect(topright = (500, 50))
-    # screen.blit(score_change, score_rect)
-    # screen.blit(score_surface, 500, 50)
-    # score_surface = test_font.render("Score:", False, "brown")
+def display_time_spent():
+    current_time = int(pygame.time.get_ticks() / 1000) - start_time
+    time_surf = test_font.render(f'{current_time}', False, (255, 255, 255))
+    time_rect = time_surf.get_rect(center = (500, 100))
+    screen.blit(time_surf, time_rect)
 
 
 pygame.init()
@@ -18,13 +15,10 @@ pygame.display.set_caption('LMGs 2048')
 clock = pygame.time.Clock()
 test_font = pygame.font.Font(None, 50)
 game_active = True
+start_time = 0
 
-# def __init__(self):
 #surface = pygame.Surface((700, 400))
-# def __init__(surface):
-# surface.fill('beige')
-# screen : Surface
-
+#surface.fill('beige')
 # pygame.draw.rect(screen, 'Pink',(600,200))
 # block_a1 = pygame.draw.rect(screen, 'Pink',(600,200))
 # block_a2
@@ -42,7 +36,7 @@ game_active = True
 # block_d2
 # block_d3
 # block_d4
-score_surface = test_font.render("Score:", False, "brown")
+#score_surface = test_font.render("Score:", False, "brown")
 
 up_button = pygame.image.load("up_key.png").convert_alpha()
 up_arrow = pygame.transform.scale(up_button, (50, 50))
@@ -61,70 +55,42 @@ left_arrow = pygame.transform.scale(left_button, (50, 50))
 left_rect = left_arrow.get_rect(bottomright=(500, 300))
 
 
-#def __init__(self):
- #   self.board_length = 4
-#  self.cell_size = 100
- #  self.window_bg_color = (187, 173, 160)
-  #  self.block_size = self.cell_size + self.gap * 2
-
-   # self.window_width = self.block_size * 6
-    #self.window_height = self.block_size * 4
-
-    # pygame.init()
-
-    # block_gravity = 0
-
-    #self.window = pygame.display.set_mode((self.window_width, self.window_height))
-
-
-#def draw_board(self):
- #   self.window.fill(self.window_bg_color)
-
-#    for r in range(self.board_length):
- #       rect_y = self.block_size * r + self.gap
-  #      for c in range(self.board_length):
-   #         rect_x = self.block_size * c + self.gap
-
-    #        pygame.draw.rect(
-     #           (0, 0, 0),
-      #          pygame.Rect(rect_x, rect_y, self.cell_size, self.cell_size)
-       #     )
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-
-    if game_active:
         # KEYBOARD CONTROLS
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                print("UP")
+        if game_active:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    print("UP")
                 # block_gravity = -15
-            elif event.key == pygame.K_DOWN:
-                print("DOWN")
-            elif event.key == pygame.K_RIGHT:
-                print("RIGHT")
-            elif event.key == pygame.K_LEFT:
-                print("LEFT")
+                elif event.key == pygame.K_DOWN:
+                    print("DOWN")
+                elif event.key == pygame.K_RIGHT:
+                    print("RIGHT")
+                elif event.key == pygame.K_LEFT:
+                    print("LEFT")
 
         # MOUSE CONTROLS
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            print(event.pos)
-            if up_rect.collidepoint(mouse_pos):
-                print('up')
-            if down_rect.collidepoint(mouse_pos):
-                print("down")
-            if right_rect.collidepoint(mouse_pos):
-                print("right")
-            if left_rect.collidepoint(mouse_pos):
-                print("left")
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                print(event.pos)
+                if up_rect.collidepoint(mouse_pos):
+                    print('up')
+                if down_rect.collidepoint(mouse_pos):
+                    print("down")
+                if right_rect.collidepoint(mouse_pos):
+                    print("right")
+                if left_rect.collidepoint(mouse_pos):
+                    print("left")
         # reintroduce to game with space
         # else:
-        # if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-        # game_active = True
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+            game_active = True
+        # (new board)
+            start_time = int(pygame.time.get_ticks() / 1000)
 
     # draw all our elements
     # update everything
@@ -134,18 +100,17 @@ while True:
         screen.blit(down_arrow, down_rect)
         screen.blit(right_arrow, right_rect)
         screen.blit(left_arrow, left_rect)
-        screen.blit(score_surface, (500, 50))
-        # display_score()
-        #self.draw_board()
+        display_time_spent()
+        #screen.blit(score_surface, (500, 50))
+        #screen.blit(screen,(700,400))
 
-        # if block.colliderect(full_board):
-        # game_active = False
-
-
+    # COLLISIONS
+        #if block.colliderect(full_board):
+            # game_active = False
     # else:
-    # screen.fill(yellow)
-    # screen.blit(ending message,(center = (350, 200))
-    # ending_message = test_font.render("Game Over :", False, "brown")
+        # screen.fill(yellow)
+        # screen.blit(ending message,(center = (350, 200))
+        # ending_message = test_font.render("Game Over :", False, "brown")
 
     pygame.display.update()
     clock.tick(40)
