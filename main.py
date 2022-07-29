@@ -1,5 +1,6 @@
 import pygame
-
+import random
+import numpy as np
 
 class game_2048:
     def __init__(self):
@@ -15,6 +16,17 @@ class game_2048:
         pygame.init()
 
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
+
+        # start the board with zeros and random number
+        self.board_status = np.zeros((self.board_length, self.board_length))
+        self.add_new_number()
+
+    def add_new_number(self):
+        empty_space = zip(*np.where(self.board_status == 0))
+        empty_space = list(empty_space)
+
+        for position in random.sample(empty_space, k=1):
+            self.board_status[position] = 2
 
     def draw_board(self):
         self.window.fill(self.window_bg_color)
