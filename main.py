@@ -42,6 +42,42 @@ class game_2048:
                     pygame.Rect(rect_x, rect_y, self.cell_size, self.cell_size)
                 )
 
+    def merge_numbers(self, data):
+        result = [0]
+        data = [x for x in data if x != 0]
+        for element in data:
+            if element == result[len(result) - 1]:
+                result[len(result) - 1] *= 2
+                result.append(0)
+            else:
+                result.append(element)
+        result = [x for x in result if x != 0]
+        return result
+
+    def movement(self, dir):
+        for idx in range(self.board_length):
+
+            if dir in "UD":
+                data = self.draw_board[:, idx]
+            else:
+                data = self.draw_board[idx, :]
+
+            flip = False
+            if dir in "RD":
+                flip = True
+                data = data[::-1]
+
+            data = self.merge_numbers(data)
+            data =  data + (self.board_length - len(data)) * [0]
+
+            if flip:
+                data = data[::-1]
+
+            if dir in "UD":
+                self.draw_board[:, idx] = data
+            else:
+                self.draw_board[idx, :] = data
+
 
     def play(self):
         playing = True
