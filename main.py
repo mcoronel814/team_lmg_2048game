@@ -2,6 +2,8 @@ import pygame
 import random
 import numpy as np
 
+pygame.display.set_caption('2048 - brought to you by LMG')
+
 class game_2048:
     def __init__(self):
         self.board_length = 4
