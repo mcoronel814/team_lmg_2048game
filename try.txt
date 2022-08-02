@@ -4,5 +4,11 @@ saving test with leslie
 
 TO DO:
 init board
-def move,
+def move
 def def compress/merge tiles
+
+Rachel TO DO:
+create - welcome screen w/ buttons
+	event - user clicks "new game"
+	event - user clicks "how to play"
+create - button during game play "quit" + event - user clicks "quit"
