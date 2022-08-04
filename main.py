@@ -143,7 +143,6 @@ class game_2048:
             self.window.blit(right_arrow, right_rect)
             self.window.blit(left_arrow, left_rect)
 
-
             pygame.display.update()
 
             for event in pygame.event.get():
