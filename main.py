@@ -175,7 +175,11 @@ class game_2048:
                     if left_rect.collidepoint(event.pos):
                         self.movement("L")
                 if self.game_over():
-                    print("Game Over !!")
+                    self.window.fill("yellow")
+                    #self.window.blit(ending_message, (center = (350, 200))
+                    #ending_message = test_font.render("Game Over :", False, "brown")
+
+                    #print("Game Over !!")
                     return
                 if (self.board_status == old_board_status).all() == False:
                     self.add_new_number()
