@@ -4,7 +4,7 @@ import numpy as np
 
 # Background color's dictionary goes here
 BG_COLORS = {
-    0: (255,255,255),
+    0: (255, 255, 255),
     2: (255, 215, 157),
     4: (217, 2, 238),
     8: (241, 98, 255),
@@ -12,17 +12,17 @@ BG_COLORS = {
     32: (255, 223, 177),
     64: (232, 13, 253),
     128: (246, 149, 255),
-    256: (101,26, 125),
+    256: (101, 26, 125),
     512: (255, 229, 193),
-    1024: (228,2,249),
-    2048: (248,175,255)
+    1024: (228, 2, 249),
+    2048: (248, 175, 255)
 }
 
 class game_2048:
     def __init__(self):
         self.board_length = 4
         self.cell_size = 100
-        self.gap = 5
+        self.gap = 6
         self.window_bg_color = (187, 173, 160)
         self.block_size = self.cell_size + self.gap * 2
 
