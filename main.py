@@ -46,31 +46,53 @@ class game_2048:
         for position in random.sample(empty_space, k=1):
             self.board_status[position] = 2
 
+
     def draw_board(self):
         self.window.fill(self.window_bg_color)
+        if self.game_over():
+            self.window.fill("yellow")
+            ending_message = self.myFont.render("Game Over !!!", False, "brown")
+            self.window.blit(ending_message, (250, 200))
 
-        for r in range(self.board_length):
-            rect_y = self.block_size * r + self.gap
-            for c in range(self.board_length):
-                rect_x = self.block_size * c + self.gap
-                cell_value = int(self.board_status[r][c])
+        else:
+            up_button = pygame.image.load("up_key.png").convert_alpha()
+            up_arrow = pygame.transform.scale(up_button, (50, 50))
+            up_rect = up_arrow.get_rect(bottomright=(575, 325))
 
-                pygame.draw.rect(
-                    self.window,
-                    BG_COLORS[cell_value],
-                    pygame.Rect(rect_x, rect_y, self.cell_size, self.cell_size)
-                )
+            down_button = pygame.image.load("down_key.png").convert_alpha()
+            down_arrow = pygame.transform.scale(down_button, (50, 50))
+            down_rect = down_arrow.get_rect(bottomright=(575, 380))
 
-                if cell_value != 0:
-                    text_surface = self.myFont.render(f"{cell_value}", True, (0, 0, 0))
-                    text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
-                    self.window.blit(text_surface, text_rect)
+            right_button = pygame.image.load("right_key.png").convert_alpha()
+            right_arrow = pygame.transform.scale(right_button, (50, 50))
+            right_rect = right_arrow.get_rect(bottomright=(630, 380))
 
-    def side_panel(self):
-        for box in range(self.board_length):
-            surface = pygame.Surface((0, 0))
-            self.window.blit(surface, (0, 0))
+            left_button = pygame.image.load("left_key.png").convert_alpha()
+            left_arrow = pygame.transform.scale(left_button, (50, 50))
+            left_rect = left_arrow.get_rect(bottomright=(520, 380))
 
+            self.window.blit(up_arrow, up_rect)
+            self.window.blit(down_arrow, down_rect)
+            self.window.blit(right_arrow, right_rect)
+            self.window.blit(left_arrow, left_rect)
+
+
+            for r in range(self.board_length):
+                rect_y = self.block_size * r + self.gap
+                for c in range(self.board_length):
+                    rect_x = self.block_size * c + self.gap
+                    cell_value = int(self.board_status[r][c])
+
+                    pygame.draw.rect(
+                        self.window,
+                        BG_COLORS[cell_value],
+                        pygame.Rect(rect_x, rect_y, self.cell_size, self.cell_size)
+                    )
+
+                    if cell_value != 0:
+                        text_surface = self.myFont.render(f"{cell_value}", True, (0, 0, 0))
+                        text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
+                        self.window.blit(text_surface, text_rect)
 
     def merge_numbers(self, data):
         result = [0]
@@ -121,28 +143,8 @@ class game_2048:
     def play(self):
         running = True
         while running:
-            up_button = pygame.image.load("up_key.png").convert_alpha()
-            up_arrow = pygame.transform.scale(up_button, (50, 50))
-            up_rect = up_arrow.get_rect(bottomright=(575, 325))
-
-            down_button = pygame.image.load("down_key.png").convert_alpha()
-            down_arrow = pygame.transform.scale(down_button, (50, 50))
-            down_rect = down_arrow.get_rect(bottomright=(575, 380))
-
-            right_button = pygame.image.load("right_key.png").convert_alpha()
-            right_arrow = pygame.transform.scale(right_button, (50, 50))
-            right_rect = right_arrow.get_rect(bottomright=(630, 380))
-
-            left_button = pygame.image.load("left_key.png").convert_alpha()
-            left_arrow = pygame.transform.scale(left_button, (50, 50))
-            left_rect = left_arrow.get_rect(bottomright=(520, 380))
 
             self.draw_board()
-            self.window.blit(up_arrow, up_rect)
-            self.window.blit(down_arrow, down_rect)
-            self.window.blit(right_arrow, right_rect)
-            self.window.blit(left_arrow, left_rect)
-
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -166,6 +168,22 @@ class game_2048:
                     elif event.key == pygame.K_ESCAPE:
                         running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
+                    up_button = pygame.image.load("up_key.png").convert_alpha()
+                    up_arrow = pygame.transform.scale(up_button, (50, 50))
+                    up_rect = up_arrow.get_rect(bottomright=(575, 325))
+
+                    down_button = pygame.image.load("down_key.png").convert_alpha()
+                    down_arrow = pygame.transform.scale(down_button, (50, 50))
+                    down_rect = down_arrow.get_rect(bottomright=(575, 380))
+
+                    right_button = pygame.image.load("right_key.png").convert_alpha()
+                    right_arrow = pygame.transform.scale(right_button, (50, 50))
+                    right_rect = right_arrow.get_rect(bottomright=(630, 380))
+
+                    left_button = pygame.image.load("left_key.png").convert_alpha()
+                    left_arrow = pygame.transform.scale(left_button, (50, 50))
+                    left_rect = left_arrow.get_rect(bottomright=(520, 380))
+
                     if up_rect.collidepoint(event.pos):
                         self.movement("U")
                     if down_rect.collidepoint(event.pos):
@@ -174,13 +192,10 @@ class game_2048:
                         self.movement("R")
                     if left_rect.collidepoint(event.pos):
                         self.movement("L")
-                if self.game_over():
-                    self.window.fill("yellow")
-                    #self.window.blit(ending_message, (center = (350, 200))
-                    #ending_message = test_font.render("Game Over :", False, "brown")
 
-                    #print("Game Over !!")
-                    return
+                if self.game_over():
+                    print("Game Over !!")
+
                 if (self.board_status == old_board_status).all() == False:
                     self.add_new_number()
 
