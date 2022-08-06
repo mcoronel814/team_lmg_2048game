@@ -34,10 +34,14 @@ class game_2048:
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         self.myFont = pygame.font.SysFont("Comic Sans MS", 30)
         pygame.display.set_caption('2048 - brought to you by LMG')
+        self.clock = pygame.time.Clock()
+        self.running = True
+        self.start_time = 0
 
         # start the board with zeros and random number
         self.board_status = np.zeros((self.board_length, self.board_length))
         self.add_new_number()
+
 
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
@@ -46,14 +50,13 @@ class game_2048:
         for position in random.sample(empty_space, k=1):
             self.board_status[position] = 2
 
-
     def draw_board(self):
         self.window.fill(self.window_bg_color)
+        self.clock.tick()
         if self.game_over():
             self.window.fill("yellow")
             ending_message = self.myFont.render("Game Over !!!", False, "brown")
             self.window.blit(ending_message, (250, 200))
-
         else:
             up_button = pygame.image.load("up_key.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
@@ -71,11 +74,23 @@ class game_2048:
             left_arrow = pygame.transform.scale(left_button, (50, 50))
             left_rect = left_arrow.get_rect(bottomright=(520, 380))
 
+            current_time = int(pygame.time.get_ticks() / 1000) - self.start_time
+            time_surf = self.myFont.render(f'Time Played: {current_time}', False, (255, 255, 255))
+            time_rect = time_surf.get_rect(center=(500, 100))
+
+            #djwdk
+            #score_surf = self.myFont.render(f'Score: {}', False,(255, 255, 255))
+            #score_rect = score_surf.get_rect(topight=(520, 50))
+
+
+
+
             self.window.blit(up_arrow, up_rect)
             self.window.blit(down_arrow, down_rect)
             self.window.blit(right_arrow, right_rect)
             self.window.blit(left_arrow, left_rect)
-
+            self.window.blit(time_surf, time_rect)
+            #self.window.blit(score_surf, score_rect)
 
             for r in range(self.board_length):
                 rect_y = self.block_size * r + self.gap
@@ -93,6 +108,7 @@ class game_2048:
                         text_surface = self.myFont.render(f"{cell_value}", True, (0, 0, 0))
                         text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
                         self.window.blit(text_surface, text_rect)
+
 
     def merge_numbers(self, data):
         result = [0]
@@ -143,7 +159,6 @@ class game_2048:
     def play(self):
         running = True
         while running:
-
             self.draw_board()
             pygame.display.update()
 
