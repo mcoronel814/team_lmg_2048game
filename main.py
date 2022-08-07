@@ -70,7 +70,7 @@ class game_2048:
                 data = data[::-1]
 
             data = self.merge_numbers(data)
-            data =  data + (self.board_length - len(data)) * [0]
+            data = data + (self.board_length - len(data)) * [0]
 
             if flip:
                 data = data[::-1]
@@ -80,16 +80,28 @@ class game_2048:
             else:
                 self.draw_board[idx, :] = data
 
-
     def play(self):
+        game_active = True
         playing = True
         while playing:
             self.draw_board()
             pygame.display.update()
-
+        while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     playing = False
+                    pygame.quit()
+                    exit()
+                if game_active:
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_UP:
+                            print("UP")
+                        elif event.key == pygame.K_DOWN:
+                            print("DOWN")
+                        elif event.key == pygame.K_RIGHT:
+                            print("RIGHT")
+                        elif event.key == pygame.K_LEFT:
+                            print("LEFT")
 
 
 if __name__ == "__main__":
