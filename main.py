@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 import numpy as np
 
 # Background color's dictionary goes here
@@ -38,6 +39,33 @@ class game_2048:
         # start the board with zeros and random number
         self.board_status = np.zeros((self.board_length, self.board_length))
         self.add_new_number()
+
+    def intro(self):
+        background_colour = BG_COLORS[16]
+        screen = pygame.display.set_mode((self.window_width, self.window_height))
+        screen.fill(background_colour)
+        pygame.display.flip()
+        time.sleep(1)
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
+        textRect = text_intro.get_rect()
+        X = self.window_width
+        Y = self.window_height
+        textRect.center = (X // 2, Y // 2)
+        display_surface = pygame.display.set_mode((X, Y))
+        pygame.display.set_caption('2048 - brought to you by LMG')
+        display_surface.blit(text_intro, textRect)
+        #running = True
+        #while running:
+            #for event in pygame.event.get():
+                #if event.type == pygame.QUIT:
+                    #running = False
+
+        logo57 = pygame.image.load("LMG_Logo_57.png").convert_alpha()
+        logo_scale = pygame.transform.scale(logo57, (X, Y))
+        logo_rect = logo_scale.get_rect(bottomright=(X // 2, Y // 2))
+        pygame.display.update()
+        pygame.display.flip()
+        time.sleep(5)
 
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
@@ -183,4 +211,5 @@ class game_2048:
 
 if __name__ == "__main__":
     game = game_2048()
+    game.intro()
     game.play()
