@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 import numpy as np
 
 # Background color's dictionary goes here
@@ -38,6 +39,61 @@ class game_2048:
         # start the board with zeros and random number
         self.board_status = np.zeros((self.board_length, self.board_length))
         self.add_new_number()
+
+    def intro(self):
+        background_colour = BG_COLORS[16]
+        screen = pygame.display.set_mode((self.window_width, self.window_height))
+        screen.fill(background_colour)
+        pygame.display.flip()
+
+        X = self.window_width
+        Y = self.window_height
+        screen = pygame.display.set_mode((X, Y))
+
+        image1 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_57.png")
+        image1 = pygame.transform.scale(image1, (X, Y))
+        screen.blit(image1, (0, 0))
+        pygame.display.update()
+        pygame.display.flip()
+        time.sleep(1)
+
+        image2 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_58.png")
+        image2 = pygame.transform.scale(image2, (X, Y))
+        screen.blit(image2, (0, 0))
+        pygame.display.update()
+        pygame.display.flip()
+        time.sleep(1)
+
+        image3 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_59.png")
+        image3 = pygame.transform.scale(image3, (X, Y))
+        screen.blit(image3, (0, 0))
+        pygame.display.update()
+        pygame.display.flip()
+        time.sleep(1)
+
+        image4 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_60.png")
+        image4 = pygame.transform.scale(image4, (X, Y))
+        screen.blit(image4, (0, 0))
+        pygame.display.update()
+        pygame.display.flip()
+        time.sleep(0.01)
+
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
+        textRect = text_intro.get_rect()
+        textRect.center = (X // 2, Y // 2)
+        screen.blit(text_intro, textRect)
+        pygame.display.flip()
+        time.sleep(3)
+
+    def main_menu(self):
+        background_colour = BG_COLORS[16]
+        screen = pygame.display.set_mode((self.window_width, self.window_height))
+        screen.fill(background_colour)
+        pygame.display.flip()
+
+        X = self.window_width
+        Y = self.window_height
+        screen = pygame.display.set_mode((X, Y))
 
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
@@ -183,4 +239,5 @@ class game_2048:
 
 if __name__ == "__main__":
     game = game_2048()
+    game.intro()
     game.play()
