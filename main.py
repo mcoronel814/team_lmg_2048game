@@ -45,50 +45,55 @@ class game_2048:
         screen = pygame.display.set_mode((self.window_width, self.window_height))
         screen.fill(background_colour)
         pygame.display.flip()
-        time.sleep(1)
-        #text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
-        #textRect = text_intro.get_rect()
-        #X = self.window_width
-        #Y = self.window_height
-        #textRect.center = (X // 2, Y // 2)
-        #display_surface = pygame.display.set_mode((X, Y))
-        #pygame.display.set_caption('2048 - brought to you by LMG')
-        #display_surface.blit(text_intro, textRect)
 
-        #running = True
-        #while running:
-            #for event in pygame.event.get():
-                #if event.type == pygame.QUIT:
-                    #running = False
         X = self.window_width
         Y = self.window_height
-        display_surface = pygame.display.set_mode((X, Y))
+        screen = pygame.display.set_mode((X, Y))
 
         image1 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_57.png")
-        display_surface.blit(image1, (0, 0))
+        image1 = pygame.transform.scale(image1, (X, Y))
+        screen.blit(image1, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
         image2 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_58.png")
-        display_surface.blit(image2, (0, 0))
+        image2 = pygame.transform.scale(image2, (X, Y))
+        screen.blit(image2, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
         image3 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_59.png")
-        display_surface.blit(image3, (0, 0))
+        image3 = pygame.transform.scale(image3, (X, Y))
+        screen.blit(image3, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
+        image4 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_60.png")
+        image4 = pygame.transform.scale(image4, (X, Y))
+        screen.blit(image4, (0, 0))
+        pygame.display.update()
+        pygame.display.flip()
+        time.sleep(0.01)
+
         text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
         textRect = text_intro.get_rect()
         textRect.center = (X // 2, Y // 2)
-        pygame.display.set_caption('2048 - brought to you by LMG')
-        display_surface.blit(text_intro, textRect)
+        screen.blit(text_intro, textRect)
         pygame.display.flip()
-        time.sleep(5)
+        time.sleep(3)
+
+    def main_menu(self):
+        background_colour = BG_COLORS[16]
+        screen = pygame.display.set_mode((self.window_width, self.window_height))
+        screen.fill(background_colour)
+        pygame.display.flip()
+
+        X = self.window_width
+        Y = self.window_height
+        screen = pygame.display.set_mode((X, Y))
 
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
