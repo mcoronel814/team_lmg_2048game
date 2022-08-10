@@ -37,6 +37,7 @@ class game_2048:
         self.clock = pygame.time.Clock()
         self.running = True
         self.start_time = 0
+        self.score = 0
 
         # start the board with zeros and random number
         self.board_status = np.zeros((self.board_length, self.board_length))
@@ -76,21 +77,17 @@ class game_2048:
 
             current_time = int(pygame.time.get_ticks() / 1000) - self.start_time
             time_surf = self.myFont.render(f'Time Played: {current_time}', False, (255, 255, 255))
-            time_rect = time_surf.get_rect(center=(500, 100))
+            time_rect = time_surf.get_rect(center=(550, 100))
 
-            #djwdk
-            #score_surf = self.myFont.render(f'Score: {}', False,(255, 255, 255))
-            #score_rect = score_surf.get_rect(topight=(520, 50))
-
-
-
+            score_surf = self.myFont.render(f'Score: {self.score}', False, (255, 255, 255))
+            score_rect = score_surf.get_rect(topright=(600, 50))
 
             self.window.blit(up_arrow, up_rect)
             self.window.blit(down_arrow, down_rect)
             self.window.blit(right_arrow, right_rect)
             self.window.blit(left_arrow, left_rect)
             self.window.blit(time_surf, time_rect)
-            #self.window.blit(score_surf, score_rect)
+            self.window.blit(score_surf, score_rect)
 
             for r in range(self.board_length):
                 rect_y = self.block_size * r + self.gap
@@ -109,29 +106,29 @@ class game_2048:
                         text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
                         self.window.blit(text_surface, text_rect)
 
-
     def merge_numbers(self, data):
         result = [0]
         data = [x for x in data if x != 0]
         for element in data:
             if element == result[len(result) - 1]:
                 result[len(result) - 1] *= 2
+                self.score += int(result[len(result) - 1])
                 result.append(0)
             else:
                 result.append(element)
         result = [x for x in result if x != 0]
         return result
 
-    def movement(self, dir):
+    def movement(self, direction):
         for idx in range(self.board_length):
 
-            if dir in "UD":
+            if direction in "UD":
                 data = self.board_status[:, idx]
             else:
                 data = self.board_status[idx, :]
 
             flip = False
-            if dir in "RD":
+            if direction in "RD":
                 flip = True
                 data = data[::-1]
 
@@ -141,15 +138,15 @@ class game_2048:
             if flip:
                 data = data[::-1]
 
-            if dir in "UD":
+            if direction in "UD":
                 self.board_status[:, idx] = data
             else:
                 self.board_status[idx, :] = data
 
     def game_over(self):
         board_status_backup = self.board_status.copy()
-        for dir in "UDLR":
-            self.movement(dir)
+        for direction in "UDLR":
+            self.movement(direction)
 
             if (self.board_status == board_status_backup).all() == False:
                 self.board_status = board_status_backup
@@ -169,16 +166,12 @@ class game_2048:
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
-                        # print("U")
                         self.movement("U")
                     elif event.key == pygame.K_DOWN:
-                        # print("D")
                         self.movement("D")
                     elif event.key == pygame.K_LEFT:
-                        # print("L")
                         self.movement("L")
                     elif event.key == pygame.K_RIGHT:
-                        # print("R")
                         self.movement("R")
                     elif event.key == pygame.K_ESCAPE:
                         running = False
