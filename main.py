@@ -54,28 +54,28 @@ class game_2048:
         Y = self.window_height
         screen = pygame.display.set_mode((X, Y))
 
-        image1 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_57.png")
+        image1 = pygame.image.load("LMG_Logo_57.png")
         image1 = pygame.transform.scale(image1, (X, Y))
         screen.blit(image1, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
-        image2 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_58.png")
+        image2 = pygame.image.load("LMG_Logo_58.png")
         image2 = pygame.transform.scale(image2, (X, Y))
         screen.blit(image2, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
-        image3 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_59.png")
+        image3 = pygame.image.load("LMG_Logo_59.png")
         image3 = pygame.transform.scale(image3, (X, Y))
         screen.blit(image3, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
-        image4 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_60.png")
+        image4 = pygame.image.load("LMG_Logo_60.png")
         image4 = pygame.transform.scale(image4, (X, Y))
         screen.blit(image4, (0, 0))
         pygame.display.update()
