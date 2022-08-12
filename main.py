@@ -3,7 +3,6 @@ import random
 import time
 import numpy as np
 
-# Background color's dictionary goes here
 BG_COLORS = {
     0: (255, 255, 255),
     2: (255, 215, 157),
@@ -35,8 +34,6 @@ class game_2048:
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         self.myFont = pygame.font.SysFont("Comic Sans MS", 30)
         pygame.display.set_caption('2048 - brought to you by LMG')
-        self.clock = pygame.time.Clock()
-        self.running = True
         self.start_time = 0
         self.score = 0
 
@@ -54,28 +51,28 @@ class game_2048:
         Y = self.window_height
         screen = pygame.display.set_mode((X, Y))
 
-        image1 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_57.png")
+        image1 = pygame.image.load("LMG_Logo_57.png")
         image1 = pygame.transform.scale(image1, (X, Y))
         screen.blit(image1, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
-        image2 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_58.png")
+        image2 = pygame.image.load("LMG_Logo_58.png")
         image2 = pygame.transform.scale(image2, (X, Y))
         screen.blit(image2, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
-        image3 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_59.png")
+        image3 = pygame.image.load("LMG_Logo_59.png")
         image3 = pygame.transform.scale(image3, (X, Y))
         screen.blit(image3, (0, 0))
         pygame.display.update()
         pygame.display.flip()
         time.sleep(1)
 
-        image4 = pygame.image.load(r"/Users/racheljardini/git-expt2/lmg-2048/LMG_Logo_60.png")
+        image4 = pygame.image.load("LMG_Logo_60.png")
         image4 = pygame.transform.scale(image4, (X, Y))
         screen.blit(image4, (0, 0))
         pygame.display.update()
@@ -108,7 +105,6 @@ class game_2048:
 
     def draw_board(self):
         self.window.fill(self.window_bg_color)
-        self.clock.tick()
         if self.game_over():
             self.window.fill("yellow")
             ending_message = self.myFont.render("Game Over !!!", False, "brown")
@@ -161,6 +157,18 @@ class game_2048:
                         text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
                         self.window.blit(text_surface, text_rect)
 
+    def merge_numbers_test(self, data):
+        result = [0]
+        data = [x for x in data if x != 0]
+        for element in data:
+            if element == result[len(result) - 1]:
+                result[len(result) - 1] *= 2
+                result.append(0)
+            else:
+                result.append(element)
+        result = [x for x in result if x != 0]
+        return result
+
     def merge_numbers(self, data):
         result = [0]
         data = [x for x in data if x != 0]
@@ -174,13 +182,37 @@ class game_2048:
         result = [x for x in result if x != 0]
         return result
 
-    def movement(self, direction):
-        for idx in range(self.board_length):
+    def movement_test(self, direction):
+        for index in range(self.board_length):
 
             if direction in "UD":
-                data = self.board_status[:, idx]
+                data = self.board_status[:, index]
             else:
-                data = self.board_status[idx, :]
+                data = self.board_status[index, :]
+
+            flip = False
+            if direction in "RD":
+                flip = True
+                data = data[::-1]
+
+            data = self.merge_numbers_test(data)
+            data = data + (self.board_length - len(data)) * [0]
+
+            if flip:
+                data = data[::-1]
+
+            if direction in "UD":
+                self.board_status[:, index] = data
+            else:
+                self.board_status[index, :] = data
+
+    def movement(self, direction):
+        for index in range(self.board_length):
+
+            if direction in "UD":
+                data = self.board_status[:, index]
+            else:
+                data = self.board_status[index, :]
 
             flip = False
             if direction in "RD":
@@ -194,16 +226,16 @@ class game_2048:
                 data = data[::-1]
 
             if direction in "UD":
-                self.board_status[:, idx] = data
+                self.board_status[:, index] = data
             else:
-                self.board_status[idx, :] = data
+                self.board_status[index, :] = data
 
     def game_over(self):
         board_status_backup = self.board_status.copy()
         for direction in "UDLR":
-            self.movement(direction)
+            self.movement_test(direction)
 
-            if (self.board_status == board_status_backup).all() == False:
+            if not (self.board_status == board_status_backup).all():
                 self.board_status = board_status_backup
                 return False
         return True
@@ -230,6 +262,10 @@ class game_2048:
                         self.movement("R")
                     elif event.key == pygame.K_ESCAPE:
                         running = False
+
+                    if not (self.board_status == old_board_status).all():
+                        self.add_new_number()
+
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     up_button = pygame.image.load("up_key.png").convert_alpha()
                     up_arrow = pygame.transform.scale(up_button, (50, 50))
@@ -256,11 +292,8 @@ class game_2048:
                     if left_rect.collidepoint(event.pos):
                         self.movement("L")
 
-                if self.game_over():
-                    print("Game Over !!")
-
-                if (self.board_status == old_board_status).all() == False:
-                    self.add_new_number()
+                    if not (self.board_status == old_board_status).all():
+                        self.add_new_number()
 
 
 if __name__ == "__main__":
