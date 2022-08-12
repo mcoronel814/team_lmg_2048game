@@ -4,19 +4,71 @@ import time
 import numpy as np
 
 BG_COLORS = {
-    0: (255, 255, 255),
-    2: (255, 215, 157),
-    4: (217, 2, 238),
-    8: (241, 98, 255),
-    16: (50, 13, 62),
-    32: (255, 223, 177),
-    64: (232, 13, 253),
-    128: (246, 149, 255),
-    256: (101, 26, 125),
-    512: (255, 229, 193),
-    1024: (228, 2, 249),
-    2048: (248, 175, 255)
-}
+        0: (255, 255, 255),
+        2: (192, 46, 29),
+        4: (217, 78, 31),
+        8: (241, 108, 32),
+        16: (239, 139, 44),
+        32: (236, 170, 56),
+        64: (235, 200, 68),
+        128: (164, 187, 108),
+        256: (92, 167, 147),
+        512: (19, 149, 186),
+        1024: (17, 120, 153),
+        2048: (15, 91, 120),
+        "white": (255, 255, 255)
+    }
+BLUE = {
+        0: (220, 236, 201),
+        2: (179, 221, 204),
+        4: (138, 205, 206),
+        8: (98, 190, 210),
+        16: (70, 170, 206),
+        32: (61, 145, 190),
+        64: (53, 119, 174),
+        128: (45, 94, 158),
+        256: (36, 68, 142),
+        512: (28, 43, 127),
+        1024: (22, 32, 101),
+        2048: (17, 23, 75),
+        "black": (0, 0, 0)
+
+    }
+
+ORANGE = {
+        0: (255, 255, 255),
+        2: (253, 232, 110),
+        4: (249, 208, 99),
+        8: (245, 184, 87),
+        16: (240, 160, 75),
+        32: (235, 138, 64),
+        64: (231, 114, 53),
+        128: (227, 91, 44),
+        256: (199, 78, 41),
+        512: (157, 68, 41),
+        1024: (117, 60, 44),
+        2048: (76, 52, 48),
+        "black": (62, 75, 75)
+
+    }
+
+PINK = {
+        0: (214, 214, 214),
+        2: (243, 172, 162),
+        4: (238, 139, 151),
+        8: (233, 106, 141),
+        16: (219, 80, 135),
+        32: (184, 66, 140),
+        64: (151, 52, 144),
+        128: (116, 39, 150),
+        256: (94, 31, 136),
+        512: (77, 26, 112),
+        1024: (61, 20, 89),
+        2048: (45, 15, 65),
+        "white": (214, 214, 214)
+
+    }
+
 
 class game_2048:
     def __init__(self):
@@ -42,7 +94,7 @@ class game_2048:
         self.add_new_number()
 
     def intro(self):
-        background_colour = BG_COLORS[16]
+        background_colour = PINK[16]
         screen = pygame.display.set_mode((self.window_width, self.window_height))
         screen.fill(background_colour)
         pygame.display.flip()
@@ -79,7 +131,7 @@ class game_2048:
         pygame.display.flip()
         time.sleep(0.01)
 
-        text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, PINK[32], PINK[64])
         textRect = text_intro.get_rect()
         textRect.center = (X // 2, Y // 2)
         screen.blit(text_intro, textRect)
@@ -87,7 +139,7 @@ class game_2048:
         time.sleep(3)
 
     def main_menu(self):
-        background_colour = BG_COLORS[16]
+        background_colour = PINK[16]
         screen = pygame.display.set_mode((self.window_width, self.window_height))
         screen.fill(background_colour)
         pygame.display.flip()
@@ -148,12 +200,12 @@ class game_2048:
 
                     pygame.draw.rect(
                         self.window,
-                        BG_COLORS[cell_value],
+                        PINK[cell_value],
                         pygame.Rect(rect_x, rect_y, self.cell_size, self.cell_size)
                     )
 
                     if cell_value != 0:
-                        text_surface = self.myFont.render(f"{cell_value}", True, (0, 0, 0))
+                        text_surface = self.myFont.render(f"{cell_value}", True, PINK["white"])
                         text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
                         self.window.blit(text_surface, text_rect)
 
