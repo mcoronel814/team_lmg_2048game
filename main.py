@@ -148,6 +148,33 @@ class game_2048:
         Y = self.window_height
         screen = pygame.display.set_mode((X, Y))
 
+        text_color = (PINK["white"])
+        button_bg_color = (PINK[64])
+        hover_color = (PINK[32])
+
+        smallfont = pygame.font.SysFont('Comic Sans MS', 30)
+        text = smallfont.render('New Game', True, text_color)
+
+        while True:
+            for ev in pygame.event.get():
+                if ev.type == pygame.QUIT:
+                    pygame.quit()
+                if ev.type == pygame.MOUSEBUTTONDOWN:
+                    if X / 2 <= mouse[0] <= X / 2 + 140 and Y / 2 <= mouse[1] <= Y / 2 + 40:
+                        game = game_2048()
+                        game.play()
+
+            screen.fill((187, 173, 160))
+            mouse = pygame.mouse.get_pos()
+
+            if X / 2 <= mouse[0] <= X / 2 + 140 and Y / 2 <= mouse[1] <= Y / 2 + 40:
+                pygame.draw.rect(screen, hover_color, [X / 2, Y / 2, 140, 40])
+            else:
+                pygame.draw.rect(screen, button_bg_color, [X / 2, Y / 2, 140, 40])
+
+            screen.blit(text, (X / 2 + 50, Y / 2))
+            pygame.display.update()
+
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
         empty_space = list(empty_space)
@@ -351,4 +378,5 @@ class game_2048:
 if __name__ == "__main__":
     game = game_2048()
     game.intro()
+    game.main_menu()
     game.play()
