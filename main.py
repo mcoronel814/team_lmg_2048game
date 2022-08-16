@@ -136,7 +136,7 @@ class game_2048:
         textRect.center = (X // 2, Y // 2)
         screen.blit(text_intro, textRect)
         pygame.display.flip()
-        time.sleep(3)
+        time.sleep(1)
 
     def main_menu(self):
         background_colour = PINK[16]
@@ -188,6 +188,9 @@ class game_2048:
             self.window.fill("yellow")
             ending_message = self.myFont.render("Game Over !!!", False, "brown")
             self.window.blit(ending_message, (250, 200))
+            pygame.display.flip()
+            time.sleep(4)
+            game.main_menu()
         else:
             up_button = pygame.image.load("up_key.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
