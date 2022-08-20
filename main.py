@@ -80,7 +80,7 @@ class game_2048:
 
         self.window_width = self.block_size * 6
         self.window_height = self.block_size * 4
-        self.window_bg_img = pygame.image.load('2048_Title.png')
+        self.window_bg_img = pygame.image.load('2048_title_hotpink.png')
 
         pygame.init()
 
