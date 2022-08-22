@@ -32,8 +32,8 @@ class game_2048:
         pygame.init()
 
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
-        self.myFont = pygame.font.SysFont("Comic Sans MS", 30)
-        pygame.display.set_caption('2048 - brought to you by LMG')
+        self.myFont = pygame.font.SysFont("Book Script", 30)
+        pygame.display.set_caption('2048 - Brought to you by LMG')
         self.start_time = 0
         self.score = 0
 
@@ -79,9 +79,9 @@ class game_2048:
         pygame.display.flip()
         time.sleep(0.01)
 
-        text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, 'Black', BG_COLORS[0])
         textRect = text_intro.get_rect()
-        textRect.center = (X // 2, Y // 2)
+        textRect.center = (X // 1.30, Y // 1.02)
         screen.blit(text_intro, textRect)
         pygame.display.flip()
         time.sleep(3)
@@ -104,6 +104,7 @@ class game_2048:
             self.board_status[position] = 2
 
     def draw_board(self):
+        self.start_time = 7
         self.window.fill(self.window_bg_color)
         if self.game_over():
             self.window.fill("yellow")
@@ -112,7 +113,7 @@ class game_2048:
         else:
             up_button = pygame.image.load("new_up.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
-            up_rect = up_arrow.get_rect(center=(575, 375))
+            up_rect = up_arrow.get_rect(bottomright=(575, 325))
 
             down_button = pygame.image.load("new_down.png").convert_alpha()
             down_arrow = pygame.transform.scale(down_button, (50, 50))
