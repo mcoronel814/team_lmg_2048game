@@ -133,12 +133,20 @@ class game_2048:
         pygame.display.flip()
         time.sleep(0.01)
 
-        text_intro = self.myFont.render('2048 - brought to you by LMG', True, PINK[32], PINK[64])
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, PINK[2], PINK[64])
         textRect = text_intro.get_rect()
-        textRect.center = (X // 2, Y // 3)
+        textRect.bottomright = (X // 1, Y // 1)
         screen.blit(text_intro, textRect)
         pygame.display.flip()
         time.sleep(1)
+
+    def draw_button(self, screen_var, button_color, x_button, y_button, draw_width, draw_height, text_var,
+                    text_color_var):
+        smallfont = pygame.font.SysFont('Comic Sans MS', 30)
+        text = smallfont.render(text_var, True, text_color_var)
+        pygame.draw.rect(screen_var, button_color, [x_button, y_button, draw_width, draw_height])
+        screen_var.blit(text, (x_button + 50, y_button))
+        # pygame.display.update()
 
     def main_menu(self):
         background_color = PINK[16]
@@ -152,7 +160,9 @@ class game_2048:
         Y_COORD = Y / 2
         BUTTON_HEIGHT = 40
         BUTTON_WIDTH = 250
-        BUTTON_PADDING = BUTTON_HEIGHT * 1.5
+        BUTTON_GAP = BUTTON_HEIGHT * 1.15
+        DROPDOWN_WIDTH = 50
+        #DROPDOWN_LEFT_PADDING =
         screen = pygame.display.set_mode((X, Y))
 
         text_color = (PINK["white"])
@@ -163,6 +173,8 @@ class game_2048:
         # text = smallfont.render('New Game', True, text_color)
 
         while True:
+
+
             for ev in pygame.event.get():
                 if ev.type == pygame.QUIT:
                     pygame.quit()
@@ -170,21 +182,45 @@ class game_2048:
                     if X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and Y_COORD <= mouse[1] <= Y_COORD + BUTTON_HEIGHT:
                         game = game_2048()
                         game.play()
-                    #Add "If" : mouse is hovering over button2 when clicked, then display instructions
 
-            screen.fill((187, 173, 160))
+ #               if ev.type == pygame.MOUSEBUTTONDOWN:
+                    elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and Y_COORD <= mouse[1] <= Y_COORD + BUTTON_HEIGHT:
+                        game = game_2048()
+                        game.play()
+                #Add "If" : mouse is over button2 when clicked, then display themes
+#####==================
+                    elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and (Y_COORD + BUTTON_GAP) <= mouse[1] <= (Y_COORD + BUTTON_HEIGHT + BUTTON_GAP):
+                        self.window.fill("yellow")
+                        theme_message = self.myFont.render("Select a theme:", False, "brown")
+                        self.draw_button(screen, button_bg_color, X_COORD, Y_COORD, BUTTON_WIDTH,
+                                         BUTTON_HEIGHT, "Theme 1", text_color)
+                        self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH,
+                                         BUTTON_HEIGHT, "Theme 2", text_color)
+                        self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP*2, BUTTON_WIDTH,
+                                         BUTTON_HEIGHT, "Theme 3", text_color)
+                        self.window.blit(theme_message, (250, 100))
+                        pygame.display.flip()
+                        mouse = pygame.mouse.get_pos()
+                        pygame.display.update()
+                        pygame.display.flip()
+                        #time.sleep(4)
+
+                    time.sleep(4)
+
+#####==================
+            screen.fill((228, 203, 194))
             self.window.blit(self.window_bg_img, self.window_bg_img.get_rect())
             mouse = pygame.mouse.get_pos()
 
             if X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and Y_COORD <= mouse[1] <= Y_COORD + BUTTON_HEIGHT:
                 self.draw_button(screen, hover_color, X_COORD, Y_COORD, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game",
                                  text_color)
-                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_PADDING, BUTTON_WIDTH,
+                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH,
                                  BUTTON_HEIGHT, "Change Theme", text_color)
                 pygame.display.update()
-            elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and (Y_COORD + BUTTON_PADDING) <= mouse[1] <= (
-                    Y_COORD + BUTTON_HEIGHT + BUTTON_PADDING):
-                self.draw_button(screen, hover_color, X_COORD, Y_COORD + BUTTON_PADDING, BUTTON_WIDTH, BUTTON_HEIGHT,
+            elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and (Y_COORD + BUTTON_GAP) <= mouse[1] <= (
+                    Y_COORD + BUTTON_HEIGHT + BUTTON_GAP):
+                self.draw_button(screen, hover_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH, BUTTON_HEIGHT,
                                  "Change Theme", text_color)
                 self.draw_button(screen, button_bg_color, X_COORD, Y_COORD, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game",
                                  text_color)
@@ -192,17 +228,9 @@ class game_2048:
             else:
                 self.draw_button(screen, button_bg_color, X_COORD, Y_COORD, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game",
                                  text_color)
-                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_PADDING, BUTTON_WIDTH,
+                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH,
                                  BUTTON_HEIGHT, "Change Theme", text_color)
                 pygame.display.update()
-
-    def draw_button(self, screen_var, button_color, x_button, y_button, draw_width, draw_height, text_var,
-                    text_color_var):
-        smallfont = pygame.font.SysFont('Comic Sans MS', 30)
-        text = smallfont.render(text_var, True, text_color_var)
-        pygame.draw.rect(screen_var, button_color, [x_button, y_button, draw_width, draw_height])
-        screen_var.blit(text, (x_button + 50, y_button))
-        # pygame.display.update()
 
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
