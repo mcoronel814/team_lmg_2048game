@@ -1,0 +1,30 @@
+Index: .idea/lmg-2048.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.10 (lmg-2048)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/lmg-2048.iml b/.idea/lmg-2048.iml
+--- a/.idea/lmg-2048.iml	(revision 257129d2ca148471854a8314ee135396be9d1d1b)
++++ b/.idea/lmg-2048.iml	(date 1661460764139)
+@@ -1,10 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+-    <content url="file://$MODULE_DIR$">
+-      <excludeFolder url="file://$MODULE_DIR$/venv" />
+-    </content>
++    <content url="file://$MODULE_DIR$" />
+     <orderEntry type="jdk" jdkName="Python 3.10 (lmg-2048)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
++  <component name="PyDocumentationSettings">
++    <option name="format" value="NUMPY" />
++    <option name="myDocStringFormat" value="NumPy" />
++  </component>
++  <component name="TestRunnerService">
++    <option name="PROJECT_TEST_RUNNER" value="py.test" />
++  </component>
+ </module>
+\ No newline at end of file
