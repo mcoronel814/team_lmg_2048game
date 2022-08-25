@@ -68,9 +68,10 @@ PINK = {
         512: (77, 26, 112),
         1024: (61, 20, 89),
         2048: (45, 15, 65),
-        "white": (214, 214, 214)
+        "black": (62, 75, 75)
 
     }
+
 
 
 class game_2048:
@@ -158,106 +159,13 @@ class game_2048:
         for position in random.sample(empty_space, k=1):
             self.board_status[position] = 2
 
-    def apply_blooming(self, image: np.ndarray) -> np.ndarray:
-        # Provide some blurring to image, to create some bloom.
-        cv2.GaussianBlur(image, ksize=(9, 9), sigmaX=10, sigmaY=10, dst=image)
-        cv2.blur(image, ksize=(5, 5), dst=image)
-        return image
 
-    def create_border(self, image: np.ndarray, margin: int, thickness: int, color) -> np.ndarray:
-        """
-        Create a normal border around an image, with specified colors.
+    def glow(self,image):
+        transform_image= pygame.transform.scale(pygame.image.load(image), (300, 300))
+        return transform_image
 
-        Args:
-            image: The image, that requires a border.
-            margin: The border distance from the sides of the image.
-            thickness: The thickness of the border.
-            color: The border color, by default a slightly yellow color.
-
-        Modifies:
-            The input image, will be modified with a border.
-
-        Returns:
-            The same image, with a border inserted.
-
-        """
-
-        # Numpy uses the convention `rows, columns`, instead of `x, y`.
-        # Therefore height, has to be before width.
-        height, width = image.shape[:2]
-        cv2.rectangle(image, (margin, margin), (width - margin, height - margin), color, thickness=thickness)
-        return image
-
-    def glowing_border(self, image: np.ndarray, margin=7, thickness=10, color=(246, 246, 246)):
-        """
-
-        Create a glowing border around an image.
-
-        Args:
-            image: The image, that requires a border.
-            margin: The border distance from the sides of the image.
-            thickness: The thickness of the border.
-            color: The border color, by default a slightly yellow color.
-
-        Modifies:
-            The input image, will be modified with a blooming border.
-
-        Returns:
-            The same image, with a blooming border inserted.
-        """
-
-        # Generate yellowish colored box
-        image = self.create_border(image, margin, thickness, color)
-
-        # Apply the blooming.
-        image = self.apply_blooming(image)
-
-        # Reassert the original border, to get a clear outline.
-        # Similar to the Watson-Scott test, two borders were added here.
-        image = self.create_border(image, margin - 1, 1, color)
-        image = self.create_border(image, margin + 1, 1, color)
-        return image
-
-    def glowing_text(self, image: np.ndarray, text: str, org: Tuple[int, int], color) -> np.ndarray:
-        """
-
-        Args:
-            image: The image, that requires a border.
-            text: The text to be placed on the image.
-            org: The starting location of the text.
-            color: The color of the text.
-
-
-        Modifies:
-            The input image, will be modified with a blooming text.
-
-        Returns:
-            The same image, with a blooming text inserted.
-        """
-
-        image = cv2.putText(image, text, org, cv2.FONT_HERSHEY_COMPLEX_SMALL, fontScale=.7, color=color, thickness=1)
-        image = self.apply_blooming(image)
-        image = cv2.putText(image, text, org, cv2.FONT_HERSHEY_COMPLEX_SMALL, fontScale=.7, color=color, thickness=1)
-        return image
-
-    def image_generator(self, value, size: Tuple[int, int], color, text_color):
-        image = np.zeros((*size[::-1], 3), dtype=np.uint8)
-        # Create the glowing border, and a copy of the image, for the text, that will be placed on it later.
-        border = self.glowing_border(image.copy(), color=color)
-        text = image.copy()
-
-        for idx in range(len(value) + 1):
-            text = self.glowing_text(image.copy(), text=value[:idx], org=((self.cell_size // 2), (self.cell_size // 2)),
-                                     color=text_color)
-            yield np.bitwise_or(border, text)
-        return np.bitwise_or(border, text)
-
-    def glow(self, number, location_x, location_y):
-        for image in self.image_generator(str(number), [self.cell_size, self.cell_size], PINK[number], PINK["white"]):
-            img = pygame.surfarray.make_surface(np.fliplr(np.rot90(image, k=-1)))
-            img.set_colorkey((0, 0, 0))
-            self.window.blit(img, (location_x, location_y))
     def draw_board(self):
+        self.pink = self.glow("glow-pink-3.png")
         self.window.fill(self.window_bg_color)
         if self.game_over():
             self.window.fill("yellow")
@@ -294,6 +202,8 @@ class game_2048:
             self.window.blit(time_surf, time_rect)
             self.window.blit(score_surf, score_rect)
 
+
+
             for r in range(self.board_length):
                 rect_y = self.block_size * r + self.gap
                 for c in range(self.board_length):
@@ -307,13 +217,16 @@ class game_2048:
                     )
 
                     if cell_value > 8:
-                        self.glow(cell_value, rect_x, rect_y)
+                        self.window.blit(self.pink, (rect_x-100, rect_y-80))
 
-                    if cell_value != 0 and cell_value <= 8:
-                        text_surface = self.myFont.render(f"{cell_value}", True, PINK["white"])
+
+
+                    if cell_value != 0:
+                        text_surface = self.myFont.render(f"{cell_value}", True, PINK["black"])
                         text_rect = text_surface.get_rect(
                             center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
                         self.window.blit(text_surface, text_rect)
+
 
     def merge_numbers_test(self, data):
         result = [0]
