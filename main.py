@@ -32,8 +32,8 @@ class game_2048:
         pygame.init()
 
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
-        self.myFont = pygame.font.SysFont("Comic Sans MS", 30)
-        pygame.display.set_caption('2048 - brought to you by LMG')
+        self.myFont = pygame.font.SysFont("Book Script", 30)
+        pygame.display.set_caption('2048 - Brought to you by LMG')
         self.start_time = 0
         self.score = 0
 
@@ -79,9 +79,9 @@ class game_2048:
         pygame.display.flip()
         time.sleep(0.01)
 
-        text_intro = self.myFont.render('2048 - brought to you by LMG', True, BG_COLORS[32], BG_COLORS[64])
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, 'Black', BG_COLORS[0])
         textRect = text_intro.get_rect()
-        textRect.center = (X // 2, Y // 2)
+        textRect.center = (X // 1.30, Y // 1.02)
         screen.blit(text_intro, textRect)
         pygame.display.flip()
         time.sleep(3)
@@ -104,25 +104,26 @@ class game_2048:
             self.board_status[position] = 2
 
     def draw_board(self):
+        self.start_time = 7
         self.window.fill(self.window_bg_color)
         if self.game_over():
             self.window.fill("yellow")
             ending_message = self.myFont.render("Game Over !!!", False, "brown")
             self.window.blit(ending_message, (250, 200))
         else:
-            up_button = pygame.image.load("up_key.png").convert_alpha()
+            up_button = pygame.image.load("new_up.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
             up_rect = up_arrow.get_rect(bottomright=(575, 325))
 
-            down_button = pygame.image.load("down_key.png").convert_alpha()
+            down_button = pygame.image.load("new_down.png").convert_alpha()
             down_arrow = pygame.transform.scale(down_button, (50, 50))
             down_rect = down_arrow.get_rect(bottomright=(575, 380))
 
-            right_button = pygame.image.load("right_key.png").convert_alpha()
+            right_button = pygame.image.load("new_right.png").convert_alpha()
             right_arrow = pygame.transform.scale(right_button, (50, 50))
             right_rect = right_arrow.get_rect(bottomright=(630, 380))
 
-            left_button = pygame.image.load("left_key.png").convert_alpha()
+            left_button = pygame.image.load("new_left.png").convert_alpha()
             left_arrow = pygame.transform.scale(left_button, (50, 50))
             left_rect = left_arrow.get_rect(bottomright=(520, 380))
 
@@ -267,19 +268,19 @@ class game_2048:
                         self.add_new_number()
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    up_button = pygame.image.load("up_key.png").convert_alpha()
+                    up_button = pygame.image.load("new_up.png").convert_alpha()
                     up_arrow = pygame.transform.scale(up_button, (50, 50))
                     up_rect = up_arrow.get_rect(bottomright=(575, 325))
 
-                    down_button = pygame.image.load("down_key.png").convert_alpha()
+                    down_button = pygame.image.load("new_down.png").convert_alpha()
                     down_arrow = pygame.transform.scale(down_button, (50, 50))
                     down_rect = down_arrow.get_rect(bottomright=(575, 380))
 
-                    right_button = pygame.image.load("right_key.png").convert_alpha()
+                    right_button = pygame.image.load("new_right.png").convert_alpha()
                     right_arrow = pygame.transform.scale(right_button, (50, 50))
                     right_rect = right_arrow.get_rect(bottomright=(630, 380))
 
-                    left_button = pygame.image.load("left_key.png").convert_alpha()
+                    left_button = pygame.image.load("new_left.png").convert_alpha()
                     left_arrow = pygame.transform.scale(left_button, (50, 50))
                     left_rect = left_arrow.get_rect(bottomright=(520, 380))
 
