@@ -309,25 +309,42 @@ class game_2048:
                         self.add_new_number()
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
+
                     up_button = pygame.image.load("new_up.png").convert_alpha()
                     up_arrow = pygame.transform.scale(up_button, (50, 50))
-                    up_rect = up_arrow.get_rect(bottomright=(575, 325))
+                    up_rect = up_arrow.get_rect(bottomright=(575, 385))
 
                     down_button = pygame.image.load("new_down.png").convert_alpha()
                     down_arrow = pygame.transform.scale(down_button, (50, 50))
-                    down_rect = down_arrow.get_rect(bottomright=(575, 380))
+                    down_rect = down_arrow.get_rect(bottomright=(575, 440))
 
                     right_button = pygame.image.load("new_right.png").convert_alpha()
                     right_arrow = pygame.transform.scale(right_button, (50, 50))
-                    right_rect = right_arrow.get_rect(bottomright=(630, 380))
+                    right_rect = right_arrow.get_rect(bottomright=(630, 440))
 
-                    left_button = pygame.image.load("new_left.png.png").convert_alpha()
+                    left_button = pygame.image.load("new_left.png").convert_alpha()
                     left_arrow = pygame.transform.scale(left_button, (50, 50))
-                    left_rect = left_arrow.get_rect(bottomright=(520, 380))
+                    left_rect = left_arrow.get_rect(bottomright=(520, 440))
 
                     menu_img = pygame.image.load("MENU.png").convert_alpha()
-                    menu_size = pygame.transform.scale(menu_img, (50, 50))
-                    menu_rect = menu_size.get_rect(bottomright=(650, 280))
+                    menu_size = pygame.transform.scale(menu_img, (45, 20))
+                    menu_rect = menu_size.get_rect(bottomright=(650, 255))
+
+                    pause_img = pygame.image.load("PAUSE.png").convert_alpha()
+                    pause_size = pygame.transform.scale(pause_img, (45, 20))
+                    pause_rect = pause_size.get_rect(bottomright=(650, 280))
+
+                    theme_img = pygame.image.load("THEME.png").convert_alpha()
+                    theme_size = pygame.transform.scale(theme_img, (45, 20))
+                    theme_rect = theme_size.get_rect(bottomright=(650, 307))
+
+                    scores_img = pygame.image.load("SCORES.png").convert_alpha()
+                    scores_size = pygame.transform.scale(scores_img, (45, 20))
+                    scores_rect = scores_size.get_rect(bottomright=(650, 333))
+
+                    quit_img = pygame.image.load("QUIT.png").convert_alpha()
+                    quit_size = pygame.transform.scale(quit_img, (45, 20))
+                    quit_rect = quit_size.get_rect(bottomright=(650, 360))
 
                     if up_rect.collidepoint(event.pos):
                         self.movement("U")
