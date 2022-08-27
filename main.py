@@ -104,6 +104,26 @@ class game_2048:
         for position in random.sample(empty_space, k=1):
             self.board_status[position] = 2
 
+    def game_over_screen(self):
+        image_end = pygame.image.load("end_screen.png")
+        ending_message = pygame.image.load("game_over_im.png")
+        game_over_end = pygame.transform.scale(ending_message, (325, 175))
+        image_end = pygame.transform.scale(image_end, (self.window_width, self.window_height))
+
+        space_press = pygame.image.load("space.press.png").convert_alpha()
+        space_pressed = pygame.transform.scale(space_press, (400, 120))
+        space_rect = space_pressed.get_rect(bottomright=(540, 420))
+
+        self.window.blit(image_end, (0, 0))
+        self.window.blit(game_over_end, (170, 90))
+        self.window.blit(space_pressed, space_rect)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                running = False
+                self.game_over_screen()
+                self.play()
+
     def draw_board(self):
         self.start_time = 7
         self.window.fill(self.window_bg_color)
@@ -111,22 +131,8 @@ class game_2048:
         image_end = pygame.transform.scale(pink_back, (self.window_width, self.window_height))
         self.window.blit(image_end, (0, 0))
         if self.game_over():
-            image_end = pygame.image.load("end_screen.png")
-            ending_message = pygame.image.load("game_over_im.png")
-            game_over_end = pygame.transform.scale(ending_message, (325, 175))
-            image_end = pygame.transform.scale(image_end, (self.window_width, self.window_height ))
+            self.game_over_screen()
 
-            space_press = pygame.image.load("space.press.png").convert_alpha()
-            space_pressed = pygame.transform.scale(space_press, (400, 40))
-            space_rect = space_pressed.get_rect(bottomright=(530, 340))
-
-            self.window.blit(image_end, (0, 0))
-            self.window.blit(game_over_end, (170, 110))
-            self.window.blit(space_pressed, space_rect)
-            pygame.display.update()
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                game_active = True
         else:
             up_button = pygame.image.load("new_up.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
@@ -176,7 +182,9 @@ class game_2048:
             self.window.blit(right_arrow, right_rect)
             self.window.blit(left_arrow, left_rect)
 
+            pygame.draw.rect(self.window, "pink", time_rect)
             self.window.blit(time_surf, time_rect)
+            pygame.draw.rect(self.window, "pink", score_rect)
             self.window.blit(score_surf, score_rect)
 
             self.window.blit(menu_size, menu_rect)
@@ -357,9 +365,12 @@ class game_2048:
                         self.movement("R")
                     if left_rect.collidepoint(event.pos):
                         self.movement("L")
-
                     if not (self.board_status == old_board_status).all():
                         self.add_new_number()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    running = False
+                    self.game_over_screen()
+
 
 
 if __name__ == "__main__":
