@@ -124,6 +124,9 @@ class game_2048:
             self.window.blit(game_over_end, (170, 110))
             self.window.blit(space_pressed, space_rect)
             pygame.display.update()
+
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                game_active = True
         else:
             up_button = pygame.image.load("new_up.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
