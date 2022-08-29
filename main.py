@@ -39,8 +39,7 @@ class game_2048:
         # start the board with zeros and random number
         self.board_status = np.zeros((self.board_length, self.board_length))
         self.add_new_number()
-
-        self.pink_back = pygame.image.load("new_left.png").convert_alpha()
+        #self.pink_back = pygame.image.load("new_left.png").convert_alpha()
 
     def intro(self):
         background_colour = BG_COLORS[16]
@@ -114,14 +113,14 @@ class game_2048:
             image_end = pygame.image.load("end_screen.png")
             ending_message = pygame.image.load("game_over_im.png")
             game_over_end = pygame.transform.scale(ending_message, (325, 175))
-            image_end = pygame.transform.scale(image_end, (self.window_width, self.window_height ))
+            image_end = pygame.transform.scale(image_end, (self.window_width, self.window_height))
 
             space_press = pygame.image.load("space.press.png").convert_alpha()
-            space_pressed = pygame.transform.scale(space_press, (400, 40))
-            space_rect = space_pressed.get_rect(bottomright=(530, 340))
+            space_pressed = pygame.transform.scale(space_press, (400, 120))
+            space_rect = space_pressed.get_rect(bottomright=(540, 420))
 
             self.window.blit(image_end, (0, 0))
-            self.window.blit(game_over_end, (170, 110))
+            self.window.blit(game_over_end, (170, 90))
             self.window.blit(space_pressed, space_rect)
             pygame.display.update()
         else:
@@ -173,7 +172,9 @@ class game_2048:
             self.window.blit(right_arrow, right_rect)
             self.window.blit(left_arrow, left_rect)
 
+            pygame.draw.rect(self.window, "pink", time_rect)
             self.window.blit(time_surf, time_rect)
+            pygame.draw.rect(self.window, "pink", score_rect)
             self.window.blit(score_surf, score_rect)
 
             self.window.blit(menu_size, menu_rect)
