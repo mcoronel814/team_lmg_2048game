@@ -4,70 +4,70 @@ import time
 import numpy as np
 
 BG_COLORS = {
-        0: (255, 255, 255),
-        2: (192, 46, 29),
-        4: (217, 78, 31),
-        8: (241, 108, 32),
-        16: (239, 139, 44),
-        32: (236, 170, 56),
-        64: (235, 200, 68),
-        128: (164, 187, 108),
-        256: (92, 167, 147),
-        512: (19, 149, 186),
-        1024: (17, 120, 153),
-        2048: (15, 91, 120),
-        "white": (255, 255, 255)
-    }
+    0: (255, 255, 255),
+    2: (192, 46, 29),
+    4: (217, 78, 31),
+    8: (241, 108, 32),
+    16: (239, 139, 44),
+    32: (236, 170, 56),
+    64: (235, 200, 68),
+    128: (164, 187, 108),
+    256: (92, 167, 147),
+    512: (19, 149, 186),
+    1024: (17, 120, 153),
+    2048: (15, 91, 120),
+    "white": (255, 255, 255)
+}
 BLUE = {
-        0: (220, 236, 201),
-        2: (179, 221, 204),
-        4: (138, 205, 206),
-        8: (98, 190, 210),
-        16: (70, 170, 206),
-        32: (61, 145, 190),
-        64: (53, 119, 174),
-        128: (45, 94, 158),
-        256: (36, 68, 142),
-        512: (28, 43, 127),
-        1024: (22, 32, 101),
-        2048: (17, 23, 75),
-        "black": (0, 0, 0)
+    0: (220, 236, 201),
+    2: (179, 221, 204),
+    4: (138, 205, 206),
+    8: (98, 190, 210),
+    16: (70, 170, 206),
+    32: (61, 145, 190),
+    64: (53, 119, 174),
+    128: (45, 94, 158),
+    256: (36, 68, 142),
+    512: (28, 43, 127),
+    1024: (22, 32, 101),
+    2048: (17, 23, 75),
+    "black": (0, 0, 0)
 
-    }
+}
 
 ORANGE = {
-        0: (255, 255, 255),
-        2: (253, 232, 110),
-        4: (249, 208, 99),
-        8: (245, 184, 87),
-        16: (240, 160, 75),
-        32: (235, 138, 64),
-        64: (231, 114, 53),
-        128: (227, 91, 44),
-        256: (199, 78, 41),
-        512: (157, 68, 41),
-        1024: (117, 60, 44),
-        2048: (76, 52, 48),
-        "black": (62, 75, 75)
+    0: (255, 255, 255),
+    2: (253, 232, 110),
+    4: (249, 208, 99),
+    8: (245, 184, 87),
+    16: (240, 160, 75),
+    32: (235, 138, 64),
+    64: (231, 114, 53),
+    128: (227, 91, 44),
+    256: (199, 78, 41),
+    512: (157, 68, 41),
+    1024: (117, 60, 44),
+    2048: (76, 52, 48),
+    "black": (62, 75, 75)
 
-    }
+}
 
 PINK = {
-        0: (214, 214, 214),
-        2: (243, 172, 162),
-        4: (238, 139, 151),
-        8: (233, 106, 141),
-        16: (219, 80, 135),
-        32: (184, 66, 140),
-        64: (151, 52, 144),
-        128: (116, 39, 150),
-        256: (94, 31, 136),
-        512: (77, 26, 112),
-        1024: (61, 20, 89),
-        2048: (45, 15, 65),
-        "white": (214, 214, 214)
+    0: (214, 214, 214),
+    2: (243, 172, 162),
+    4: (238, 139, 151),
+    8: (233, 106, 141),
+    16: (219, 80, 135),
+    32: (184, 66, 140),
+    64: (151, 52, 144),
+    128: (116, 39, 150),
+    256: (94, 31, 136),
+    512: (77, 26, 112),
+    1024: (61, 20, 89),
+    2048: (45, 15, 65),
+    "white": (214, 214, 214)
 
-    }
+}
 
 
 class game_2048:
@@ -80,6 +80,7 @@ class game_2048:
 
         self.window_width = self.block_size * 6
         self.window_height = self.block_size * 4
+        self.window_bg_img = pygame.image.load('2048_title_hotpink.png')
 
         pygame.init()
 
@@ -94,35 +95,36 @@ class game_2048:
         self.add_new_number()
 
     def intro(self):
-        background_colour = PINK[16]
+        background_color = PINK[16]
         screen = pygame.display.set_mode((self.window_width, self.window_height))
-        screen.fill(background_colour)
+        screen.fill(background_color)
         pygame.display.flip()
 
         X = self.window_width
         Y = self.window_height
         screen = pygame.display.set_mode((X, Y))
+        INTRO_TICK = 0.25
 
         image1 = pygame.image.load("LMG_Logo_57.png")
         image1 = pygame.transform.scale(image1, (X, Y))
         screen.blit(image1, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(1)
+        time.sleep(INTRO_TICK)
 
         image2 = pygame.image.load("LMG_Logo_58.png")
         image2 = pygame.transform.scale(image2, (X, Y))
         screen.blit(image2, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(1)
+        time.sleep(INTRO_TICK)
 
         image3 = pygame.image.load("LMG_Logo_59.png")
         image3 = pygame.transform.scale(image3, (X, Y))
         screen.blit(image3, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(1)
+        time.sleep(INTRO_TICK)
 
         image4 = pygame.image.load("LMG_Logo_60.png")
         image4 = pygame.transform.scale(image4, (X, Y))
@@ -131,22 +133,104 @@ class game_2048:
         pygame.display.flip()
         time.sleep(0.01)
 
-        text_intro = self.myFont.render('2048 - brought to you by LMG', True, PINK[32], PINK[64])
+        text_intro = self.myFont.render('2048 - brought to you by LMG', True, PINK[2], PINK[64])
         textRect = text_intro.get_rect()
-        textRect.center = (X // 2, Y // 2)
+        textRect.bottomright = (X // 1, Y // 1)
         screen.blit(text_intro, textRect)
         pygame.display.flip()
-        time.sleep(3)
+        time.sleep(1)
+
+    def draw_button(self, screen_var, button_color, x_button, y_button, draw_width, draw_height, text_var,
+                    text_color_var):
+        smallfont = pygame.font.SysFont('Comic Sans MS', 30)
+        text = smallfont.render(text_var, True, text_color_var)
+        pygame.draw.rect(screen_var, button_color, [x_button, y_button, draw_width, draw_height])
+        screen_var.blit(text, (x_button + 50, y_button))
+        # pygame.display.update()
 
     def main_menu(self):
-        background_colour = PINK[16]
+        background_color = PINK[16]
         screen = pygame.display.set_mode((self.window_width, self.window_height))
-        screen.fill(background_colour)
+        screen.fill(background_color)
         pygame.display.flip()
 
         X = self.window_width
         Y = self.window_height
+        X_COORD = X / 2
+        Y_COORD = Y / 2
+        BUTTON_HEIGHT = 40
+        BUTTON_WIDTH = 250
+        BUTTON_GAP = BUTTON_HEIGHT * 1.15
+        DROPDOWN_WIDTH = 50
+        #DROPDOWN_LEFT_PADDING =
         screen = pygame.display.set_mode((X, Y))
+
+        text_color = (PINK["white"])
+        button_bg_color = (PINK[64])
+        hover_color = (PINK[32])
+
+        # smallfont = pygame.font.SysFont('Comic Sans MS', 30)
+        # text = smallfont.render('New Game', True, text_color)
+
+        while True:
+
+
+            for ev in pygame.event.get():
+                if ev.type == pygame.QUIT:
+                    pygame.quit()
+                if ev.type == pygame.MOUSEBUTTONDOWN:
+                    if X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and Y_COORD <= mouse[1] <= Y_COORD + BUTTON_HEIGHT:
+                        game = game_2048()
+                        game.play()
+
+ #               if ev.type == pygame.MOUSEBUTTONDOWN:
+                    elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and Y_COORD <= mouse[1] <= Y_COORD + BUTTON_HEIGHT:
+                        game = game_2048()
+                        game.play()
+                #Add "If" : mouse is over button2 when clicked, then display themes
+#####==================
+                    elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and (Y_COORD + BUTTON_GAP) <= mouse[1] <= (Y_COORD + BUTTON_HEIGHT + BUTTON_GAP):
+                        self.window.fill("yellow")
+                        theme_message = self.myFont.render("Select a theme:", False, "brown")
+                        self.draw_button(screen, button_bg_color, X_COORD, Y_COORD, BUTTON_WIDTH,
+                                         BUTTON_HEIGHT, "Theme 1", text_color)
+                        self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH,
+                                         BUTTON_HEIGHT, "Theme 2", text_color)
+                        self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP*2, BUTTON_WIDTH,
+                                         BUTTON_HEIGHT, "Theme 3", text_color)
+                        self.window.blit(theme_message, (250, 100))
+                        pygame.display.flip()
+                        mouse = pygame.mouse.get_pos()
+                        pygame.display.update()
+                        pygame.display.flip()
+                        #time.sleep(4)
+
+                    time.sleep(4)
+
+#####==================
+            screen.fill((228, 203, 194))
+            self.window.blit(self.window_bg_img, self.window_bg_img.get_rect())
+            mouse = pygame.mouse.get_pos()
+
+            if X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and Y_COORD <= mouse[1] <= Y_COORD + BUTTON_HEIGHT:
+                self.draw_button(screen, hover_color, X_COORD, Y_COORD, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game",
+                                 text_color)
+                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH,
+                                 BUTTON_HEIGHT, "Change Theme", text_color)
+                pygame.display.update()
+            elif X_COORD <= mouse[0] <= X_COORD + BUTTON_WIDTH and (Y_COORD + BUTTON_GAP) <= mouse[1] <= (
+                    Y_COORD + BUTTON_HEIGHT + BUTTON_GAP):
+                self.draw_button(screen, hover_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH, BUTTON_HEIGHT,
+                                 "Change Theme", text_color)
+                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game",
+                                 text_color)
+                pygame.display.update()
+            else:
+                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD, BUTTON_WIDTH, BUTTON_HEIGHT, "New Game",
+                                 text_color)
+                self.draw_button(screen, button_bg_color, X_COORD, Y_COORD + BUTTON_GAP, BUTTON_WIDTH,
+                                 BUTTON_HEIGHT, "Change Theme", text_color)
+                pygame.display.update()
 
     def add_new_number(self):
         empty_space = zip(*np.where(self.board_status == 0))
@@ -161,6 +245,9 @@ class game_2048:
             self.window.fill("yellow")
             ending_message = self.myFont.render("Game Over !!!", False, "brown")
             self.window.blit(ending_message, (250, 200))
+            pygame.display.flip()
+            time.sleep(4)
+            game.main_menu()
         else:
             up_button = pygame.image.load("up_key.png").convert_alpha()
             up_arrow = pygame.transform.scale(up_button, (50, 50))
@@ -206,7 +293,8 @@ class game_2048:
 
                     if cell_value != 0:
                         text_surface = self.myFont.render(f"{cell_value}", True, PINK["white"])
-                        text_rect = text_surface.get_rect(center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
+                        text_rect = text_surface.get_rect(
+                            center=(rect_x + self.block_size / 2, rect_y + self.block_size / 2))
                         self.window.blit(text_surface, text_rect)
 
     def merge_numbers_test(self, data):
@@ -351,4 +439,5 @@ class game_2048:
 if __name__ == "__main__":
     game = game_2048()
     game.intro()
+    game.main_menu()
     game.play()
