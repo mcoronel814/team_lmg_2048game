@@ -162,10 +162,10 @@ class game_2048:
 
             current_time = int(pygame.time.get_ticks() / 1000) - self.start_time
             time_surf = self.myFont.render(f'Time Played: {current_time}', False, (255, 255, 255))
-            time_rect = time_surf.get_rect(center=(550, 200))
+            time_rect = time_surf.get_rect(center=(550, 150))
 
             score_surf = self.myFont.render(f'Score: {self.score}', False, (255, 255, 255))
-            score_rect = score_surf.get_rect(center=(600, 150))
+            score_rect = score_surf.get_rect(center=(550, 200))
 
             self.window.blit(up_arrow, up_rect)
             self.window.blit(down_arrow, down_rect)
