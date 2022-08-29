@@ -166,7 +166,7 @@ class game_2048:
         #DROPDOWN_LEFT_PADDING =
         screen = pygame.display.set_mode((X, Y))
 
-        text_color = (PINK["white"])
+        text_color = (PINK[0])
         button_bg_color = (PINK[64])
         hover_color = (PINK[32])
 
