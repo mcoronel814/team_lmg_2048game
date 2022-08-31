@@ -26,11 +26,8 @@ Here is a quick glance on how our game looks!
 
 ![](2048_minigif.gif)
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-## Authors and acknowledgment
-###Authors:
+##Authors:
 
 Manuel Coronel - Back-end
 
@@ -42,7 +39,8 @@ Rachel Jardini - Front-end
 
 Leslie Vivaldo - Front-end / Graphic Designer
 
-###Project Mentor:
+##Project Mentor:
+
 Austin Sloane - TechWise Instructor
 
 ## Project status
