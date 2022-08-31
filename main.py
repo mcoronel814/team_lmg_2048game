@@ -1,6 +1,5 @@
 import pygame
 import random
-import time
 import numpy as np
 
 BG_COLORS = {
@@ -85,10 +84,11 @@ class game_2048:
 
         pygame.init()
 
+        self.running = True
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         self.myFont = pygame.font.SysFont("Book Script", 30)
         pygame.display.set_caption('2048 - Brought to you by LMG')
-        self.start_time = 0
+        self.timer_start = pygame.time.get_ticks()
         self.score = 0
 
         # start the board with zeros and random number
@@ -105,42 +105,42 @@ class game_2048:
         X = self.window_width
         Y = self.window_height
         screen = pygame.display.set_mode((X, Y))
-        INTRO_TICK = 0.25
+        INTRO_TICK = 250
 
         image1 = pygame.image.load("LMG_Logo_57.png")
         image1 = pygame.transform.scale(image1, (X, Y))
         screen.blit(image1, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(INTRO_TICK)
+        pygame.time.delay(INTRO_TICK)
 
         image2 = pygame.image.load("LMG_Logo_58.png")
         image2 = pygame.transform.scale(image2, (X, Y))
         screen.blit(image2, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(INTRO_TICK)
+        pygame.time.delay(INTRO_TICK)
 
         image3 = pygame.image.load("LMG_Logo_59.png")
         image3 = pygame.transform.scale(image3, (X, Y))
         screen.blit(image3, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(INTRO_TICK)
+        pygame.time.delay(INTRO_TICK)
 
         image4 = pygame.image.load("LMG_Logo_60.png")
         image4 = pygame.transform.scale(image4, (X, Y))
         screen.blit(image4, (0, 0))
         pygame.display.update()
         pygame.display.flip()
-        time.sleep(0.01)
+        pygame.time.delay(10)
 
         text_intro = self.myFont.render('2048 - brought to you by LMG', True, 'Black', BG_COLORS[0])
         textRect = text_intro.get_rect()
         textRect.center = (X // 1.30, Y // 1.02)
         screen.blit(text_intro, textRect)
         pygame.display.flip()
-        time.sleep(1)
+        pygame.time.delay(1000)
 
     def draw_button(self, screen_var, button_color, x_button, y_button, draw_width, draw_height, text_var,
                     text_color_var):
@@ -207,7 +207,7 @@ class game_2048:
                         pygame.display.flip()
                         #time.sleep(4)
 
-                    time.sleep(4)
+                    pygame.time.delay(4000)
 
 #####==================
             screen.fill((228, 203, 194))
@@ -248,7 +248,6 @@ class game_2048:
 
     def draw_board(self):
         self.pink = self.glow("glow-pink-3.png")
-        self.start_time = 7
         self.window.fill(self.window_bg_color)
         pink_back = pygame.image.load("pink_back.png")
         image_end = pygame.transform.scale(pink_back, (self.window_width, self.window_height))
@@ -304,8 +303,11 @@ class game_2048:
             quit_size = pygame.transform.scale(quit_img, (45, 20))
             quit_rect = quit_size.get_rect(bottomright=(650, 360))
 
-            current_time = int(pygame.time.get_ticks() / 1000) - self.start_time
-            time_surf = self.myFont.render(f'Time Played: {current_time}', False, (255, 255, 255))
+            timer = pygame.time.get_ticks() - self.timer_start
+            seconds = int(timer / 1000 % 60)
+            minutes = int(timer / 60000 % 24)
+            display_timer = '{minutes:02d}:{seconds:02d}'.format(minutes=minutes, seconds=seconds)
+            time_surf = self.myFont.render(f'Time Played: {display_timer}', False, (255, 255, 255))
             time_rect = time_surf.get_rect(center=(550, 200))
 
             score_surf = self.myFont.render(f'Score: {self.score}', False, (255, 255, 255))
@@ -318,6 +320,8 @@ class game_2048:
 
             pygame.draw.rect(self.window, "pink", time_rect)
             self.window.blit(time_surf, time_rect)
+
+
             pygame.draw.rect(self.window, "pink", score_rect)
             self.window.blit(score_surf, score_rect)
 
@@ -434,8 +438,7 @@ class game_2048:
         return True
 
     def play(self):
-        running = True
-        while running:
+        while self.running:
             self.draw_board()
             pygame.display.update()
 
@@ -443,7 +446,7 @@ class game_2048:
                 old_board_status = self.board_status.copy()
 
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
                         self.movement("U")
@@ -454,7 +457,7 @@ class game_2048:
                     elif event.key == pygame.K_RIGHT:
                         self.movement("R")
                     elif event.key == pygame.K_ESCAPE:
-                        running = False
+                        self.running = False
 
                     if not (self.board_status == old_board_status).all():
                         self.add_new_number()
