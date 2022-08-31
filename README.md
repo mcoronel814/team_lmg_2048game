@@ -26,8 +26,8 @@ Here is a quick glance on how our game looks!
 
 ![](2048_minigif.gif)
 
-
-##Authors:
+## Authors and acknowledgment
+### Authors:
 
 Manuel Coronel - Back-end
 
@@ -39,7 +39,7 @@ Rachel Jardini - Front-end
 
 Leslie Vivaldo - Front-end / Graphic Designer
 
-##Project Mentor:
+### Project Mentor:
 
 Austin Sloane - TechWise Instructor
 
