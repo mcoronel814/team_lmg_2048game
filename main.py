@@ -284,34 +284,34 @@ class game_2048:
             left_rect = left_arrow.get_rect(bottomright=(520, 440))
 
             menu_img = pygame.image.load("MENU.png").convert_alpha()
-            menu_size = pygame.transform.scale(menu_img, (45, 20))
+            menu_size = pygame.transform.scale(menu_img, (50, 20))
             menu_rect = menu_size.get_rect(bottomright=(650, 255))
 
             pause_img = pygame.image.load("PAUSE.png").convert_alpha()
-            pause_size = pygame.transform.scale(pause_img, (45, 20))
+            pause_size = pygame.transform.scale(pause_img, (50, 20))
             pause_rect = pause_size.get_rect(bottomright=(650, 280))
 
             theme_img = pygame.image.load("THEME.png").convert_alpha()
-            theme_size = pygame.transform.scale(theme_img, (45, 20))
+            theme_size = pygame.transform.scale(theme_img, (55, 15))
             theme_rect = theme_size.get_rect(bottomright=(650, 307))
 
             scores_img = pygame.image.load("SCORES.png").convert_alpha()
-            scores_size = pygame.transform.scale(scores_img, (45, 20))
-            scores_rect = scores_size.get_rect(bottomright=(650, 333))
+            scores_size = pygame.transform.scale(scores_img, (60, 15))
+            scores_rect = scores_size.get_rect(bottomright=(655, 333))
 
             quit_img = pygame.image.load("QUIT.png").convert_alpha()
-            quit_size = pygame.transform.scale(quit_img, (45, 20))
-            quit_rect = quit_size.get_rect(bottomright=(650, 360))
+            quit_size = pygame.transform.scale(quit_img, (40, 15))
+            quit_rect = quit_size.get_rect(bottomright=(644, 360))
 
             timer = pygame.time.get_ticks() - self.timer_start
             seconds = int(timer / 1000 % 60)
             minutes = int(timer / 60000 % 24)
             display_timer = '{minutes:02d}:{seconds:02d}'.format(minutes=minutes, seconds=seconds)
             time_surf = self.myFont.render(f'Time Played: {display_timer}', False, (255, 255, 255))
-            time_rect = time_surf.get_rect(center=(550, 200))
+            time_rect = time_surf.get_rect(center=(550, 150))
 
             score_surf = self.myFont.render(f'Score: {self.score}', False, (255, 255, 255))
-            score_rect = score_surf.get_rect(center=(600, 150))
+            score_rect = score_surf.get_rect(center=(550, 200))
 
             self.window.blit(up_arrow, up_rect)
             self.window.blit(down_arrow, down_rect)
@@ -320,8 +320,6 @@ class game_2048:
 
             pygame.draw.rect(self.window, "pink", time_rect)
             self.window.blit(time_surf, time_rect)
-
-
             pygame.draw.rect(self.window, "pink", score_rect)
             self.window.blit(score_surf, score_rect)
 
@@ -481,24 +479,24 @@ class game_2048:
                     left_rect = left_arrow.get_rect(bottomright=(520, 440))
 
                     menu_img = pygame.image.load("MENU.png").convert_alpha()
-                    menu_size = pygame.transform.scale(menu_img, (45, 20))
+                    menu_size = pygame.transform.scale(menu_img, (50, 20))
                     menu_rect = menu_size.get_rect(bottomright=(650, 255))
 
                     pause_img = pygame.image.load("PAUSE.png").convert_alpha()
-                    pause_size = pygame.transform.scale(pause_img, (45, 20))
+                    pause_size = pygame.transform.scale(pause_img, (50, 20))
                     pause_rect = pause_size.get_rect(bottomright=(650, 280))
 
                     theme_img = pygame.image.load("THEME.png").convert_alpha()
-                    theme_size = pygame.transform.scale(theme_img, (45, 20))
+                    theme_size = pygame.transform.scale(theme_img, (55, 15))
                     theme_rect = theme_size.get_rect(bottomright=(650, 307))
 
                     scores_img = pygame.image.load("SCORES.png").convert_alpha()
-                    scores_size = pygame.transform.scale(scores_img, (45, 20))
-                    scores_rect = scores_size.get_rect(bottomright=(650, 333))
+                    scores_size = pygame.transform.scale(scores_img, (60, 15))
+                    scores_rect = scores_size.get_rect(bottomright=(655, 333))
 
                     quit_img = pygame.image.load("QUIT.png").convert_alpha()
-                    quit_size = pygame.transform.scale(quit_img, (45, 20))
-                    quit_rect = quit_size.get_rect(bottomright=(650, 360))
+                    quit_size = pygame.transform.scale(quit_img, (40, 15))
+                    quit_rect = quit_size.get_rect(bottomright=(644, 360))
 
                     if up_rect.collidepoint(event.pos):
                         self.movement("U")
