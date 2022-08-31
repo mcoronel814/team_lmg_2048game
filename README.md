@@ -23,7 +23,8 @@ We had to follow these rules when creating the game:
 ## Visuals
 Here is a quick glance on how our game looks!
 
-![](C:/Users/mcoro/Downloads/2022-08-31_14-24-26_AdobeExpress.gif)
+
+![](2048_minigif.gif)
 
 ## Roadmap
 If you have ideas for releases in the future, it is a good idea to list them in the README.
